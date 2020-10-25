@@ -125,8 +125,13 @@ app.get("/", (req, res) => {
 });
 
 //Return manageUser page
-app.get("/checkpage", function (req, res) {
-    res.sendFile(path.join(__dirname, "/checkpage.html"))
+app.get("/admin", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/adminhome.html"));
+});
+
+//Return manageUser page
+app.get("/carshop", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/carshop.html"));
 });
 
 //Return findCar page
