@@ -59,7 +59,7 @@ app.use(body_parser.json());
 // // profle
 // app.use("/profile", profileRoutes);
 
-// app.use("/img", express.static(path.join(__dirname, 'img')));
+app.use("/img", express.static(path.join(__dirname, '/assets/images')));
 // app.use("/style.css", express.static(path.join(__dirname, 'style.css')));
 // app.use("/upload", express.static(path.join(__dirname, 'upload')));
 
@@ -117,7 +117,7 @@ app.get("/adminhistorytableEmailCommittee/info/:year", function (req, res) {
 
 //Root Page (landing page 1)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/landing1.html"));
+    res.sendFile(path.join(__dirname, "views/home.html"));
     // res.render("home.ejs", {user: req.user});
 });
 
