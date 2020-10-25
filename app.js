@@ -5,12 +5,12 @@ const body_parser = require("body-parser");
 const multer = require("multer");
 const mysql = require("mysql");
 const config = require("./dbConfig.js");
-const authRoutes = require("./routes/auth-routes");
-const profileRoutes = require("./routes/profile-routes");
-const passportSetup = require("./config/passport-setup");
-const passport = require("passport");
-const cookieSession = require("cookie-session");
-const key = require("./config/key");
+// const authRoutes = require("./routes/auth-routes");
+// const profileRoutes = require("./routes/profile-routes");
+// const passportSetup = require("./config/passport-setup");
+// const passport = require("passport");
+// const cookieSession = require("cookie-session");
+// const key = require("./config/key");
 // const xlsx = require("xlsx");
 
 // const readXlsxfile = require("read-excel-file/node")
@@ -22,7 +22,7 @@ const saltRounds = 10;
 // const moment = require('moment');
 const app = express();
 const con = mysql.createConnection(config);
-app.use('/Image', express.static('./upload/Image'));
+// app.use('/Image', express.static('./upload/Image'));
 
 
 //=========Put to use==========
@@ -45,19 +45,19 @@ const upload = multer({ storage: storageOption }).single("filetoupload");
 app.use(body_parser.urlencoded({ extended: true })); //when you post service
 app.use(body_parser.json());
 //cookie
-app.use(cookieSession({
-    // maxAge: 1000*60*60,
-    maxAge: 1000 * 60 * 60,
-    keys: [key.cookie.secret]
-}));
+// app.use(cookieSession({
+//     // maxAge: 1000*60*60,
+//     maxAge: 1000 * 60 * 60,
+//     keys: [key.cookie.secret]
+// }));
 // init passport for se/derialization
-app.use(passport.initialize());
-// session
-app.use(passport.session());
-// authen
-app.use("/auth", authRoutes);
-// profle
-app.use("/profile", profileRoutes);
+// app.use(passport.initialize());
+// // session
+// app.use(passport.session());
+// // authen
+// app.use("/auth", authRoutes);
+// // profle
+// app.use("/profile", profileRoutes);
 
 // app.use("/img", express.static(path.join(__dirname, 'img')));
 // app.use("/style.css", express.static(path.join(__dirname, 'style.css')));
