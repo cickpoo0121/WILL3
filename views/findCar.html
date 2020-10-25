@@ -34,29 +34,14 @@
         background-color: #ffffff;
     }
 
-    .process {
-        background-color: #f2f8fc;
+    #fill {
+        height: 430px;
+        background-color: #ffd75d;
     }
 
     .btn {
 
         background-color: #00a8ec;
-    }
-
-    .btnfind {
-        background-color: #00a8ec;
-        position: absolute;
-        top: 59%;
-        left: 31%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-
-        color: white;
-        font-size: 16px;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
     }
 </style>
 <nav class="navbar navbar-expand-sm ">
@@ -76,23 +61,89 @@
         <form class="form-inline my-2 my-lg-0">
 
             <button class="btn my-2 my-sm-0 text-white" type="submit">เข้าสู่ระบบ</button>
+
         </form>
     </div>
 </nav>
 
 <div class="container">
-    <img src="assets\images\car.png" style="width: 1320px;">
-    <a href="/findCar" > <button class="btnfind" type="submit">ค้นหารถเช่า</button></a>
+<br>
+    <div class="row">
+
+
+        <div class="col-6">
+<br>
+<br>
+<br>
+<br>
+            <div class="container" id="fill">
+                <br>
+                <form >
+                    <div class="form-group row mt-3 " >
+
+                        <label for="inputPassword" class="col-sm-2 col-form-label">จังหวัด</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="เชียงราย">
+                        </div>
+                    </div>
+                </form>
+
+                <form>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">สถานที่</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword"
+                                placeholder="สนามบินเชียงราย">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        คืนรถสถานที่อื่น
+                    </label>
+                </div>
+
+                <form>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <p>วันที่รับรถ :</p>
+                            <input type="date" class="form-control" placeholder="First name">
+                            <input type="time" class="form-control mt-3" placeholder="First name">
+                        </div>
+                        <div class="col">
+                            <p>วันที่ส่งคืนรถ :</p>
+                            <input type="date" class="form-control" placeholder="Last name">
+                            <input type="time" class="form-control mt-3" placeholder="First name">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="mt-5  text-center">
+                  <a href="carrent"> <button class="btn my-2 my-sm-0 text-white  " type="submit">ค้นหารถเช่า</button> </a>  
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-6">
+
+            <img src="assets\images\findcar.png " style="width: 744px; height: 700px;">
+
+        </div>
+
+    </div>
+
 </div>
 
 
-<div>
-    <img src="assets\images\process.png " style="width: 1516px;">
-</div>
 
-<div class="mb-5">
 
-</div>
+
 <!-- Footer -->
 <footer class="page-footer font-small  pt-4   text-white mt-5">
 

@@ -120,13 +120,23 @@ app.get("/adminhistorytableEmailCommittee/info/:year", function (req, res) {
 
 //Root Page (landing page 1)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "views/home.html"));
+    res.sendFile(path.join(__dirname, "/views/home.html"));
     // res.render("home.ejs", {user: req.user});
 });
 
 //Return manageUser page
 app.get("/checkpage", function (req, res) {
     res.sendFile(path.join(__dirname, "/checkpage.html"))
+});
+
+//Return findCar page
+app.get("/findCar", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/findCar.html"))
+});
+
+//Return carrent page
+app.get("/carrent", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/carrent.html"))
 });
 
 
