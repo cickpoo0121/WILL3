@@ -44,6 +44,11 @@ const upload = multer({ storage: storageOption }).single("filetoupload");
 //<=========== Middleware ==========>
 app.use(body_parser.urlencoded({ extended: true })); //when you post service
 app.use(body_parser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/assets/images", express.static(path.join(__dirname, '/assets/images')));
+// app.use("/style.css", express.static(path.join(__dirname, 'style.css')));
+// app.use("/upload", express.static(path.join(__dirname, 'upload')));
+
 //cookie
 // app.use(cookieSession({
 //     // maxAge: 1000*60*60,
@@ -59,9 +64,7 @@ app.use(body_parser.json());
 // // profle
 // app.use("/profile", profileRoutes);
 
-app.use("/img", express.static(path.join(__dirname, '/assets/images')));
-// app.use("/style.css", express.static(path.join(__dirname, 'style.css')));
-// app.use("/upload", express.static(path.join(__dirname, 'upload')));
+
 
 
 //================== Services (functions) ===================
