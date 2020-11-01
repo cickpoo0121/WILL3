@@ -1,154 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https:maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-    <title>Registration</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/css/adminlte.min.css">
+    <script src="https://kit.fontawesome.com/eaa1eaa6a4.js" crossorigin="anonymous"></script>
 </head>
-<style type="text/css">
-*{
-    margin: 0;
-    padding: 0;
-}
-body{
-    background-image: url(../assets/images/car.png);
-    background-size: cover;
-    font-family: sans-serif;
-}
-.regform{
-    width: 800px;
-    background-color: rgb(0,0,0,6);
-    margin: auto;
-    color: black;
-    padding: 10px 0px 10px 0px;
-    text-align: center;
-    border-radius: 15px 15px 0px 0px;
-    background-color: lightblue;
-    
-}
-.main{
-    background-color:lightblue;
-    width: 800px;
-    margin: auto;
-    height: 500px;
-}
-form{
-    padding: 10px;
-}
-#name{
-    width: 100%;
-    height: 100px;
-}
-.name{
-    margin-left: 80px;
-    margin-top: 30px;
-    width: 125px;
-    color:black;
-    font-size: 18px;
-    font-weight: bold;
-}
+<title>Registration</title>
+</head>
 
-.lastname{
-    position: relative;
-    left: 380px;
-    top: -81px;
-    line-height: 40px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
-    color: #555;
-}
-.firstname{
-    position: relative;
-    left: 200px;
-    top: -37px;
-    line-height: 40px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
-}
-.firstlable{
-    position: relative;
-    left: 180px;
-    top: -37px;
-    line-height: 40px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
-    font-weight: bold;
-}
-.lastlable{
-    position: relative;
-    text-transform: capitalize;
-    font-size: 14px;
-    left: 135px;
-    top: -37px;
-    font-weight: bold;
-}
-.email{
-    position: relative;
-    left: 200px;
-    top: -37px;
-    line-height: 40px;
-    width: 300px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
+<style>
+    /* body, html {
+      height: 100%;
+      margin: 0;
+      font: 400 15px/1.8 "Lato", sans-serif;
+      color: #777;
+      opacity: 0.65;
+    } */
     
-}
-.code{
-    position: relative;
-    left: 200px;
-    top: -37px;
-    line-height: 40px;
-    width: 95px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
-}
-.number{
-    position: relative;
-    left: 200px;
-    top: -37px;
-    line-height: 40px;
-    width: 200px;
-    border-radius: 6px;
-    padding: 0 22px;
-    font-size: 16px;
-}
-.area-code{
-    position: relative;
-    left: 50px;
-    font-weight: bold;
-}
-.phone-number{
-    position: relative;
-    right: 50px;
-    font-weight: bold;
-}
-button{
-    background-color: lightblue;
-    display: block;
-    text-align: center;
-    margin: 20px 0px 0px 20px;
-    border-radius: 12px;
-    border: 2px solid black;
-    padding: 14px 110px;
-    outline: none;
-    color:black;
-    cursor: pointer;
-    transition: 0.25px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 32%;
+    /* .bgimg{
+      position: relative;
+      opacity: 0.65;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     
-}
+    } */
+    /* body {
+      background-image: url(/assets/images/car.png);
+      height: 100%;
+      background-color: #23324a;
+    } */
+    
+    /* .caption {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      color: #000;
+    }
+    
+    .caption span.border {
+      background-color: #111;
+      color: #fff;
+      padding: 18px;
+      font-size: 25px;
+      letter-spacing: 10px;
+    }
+    
+    h3 {
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font: 20px "Lato", sans-serif;
+      color: #111;
+    } */
+    </style>
 
-
-</style>
-<body>
-    <div class="regform"><h1>Registration</h1></div>
+<body class="hold-transition login-page" >
+    <!-- <div class="regform"><h1>Registration</h1></div>
     <div class="main">
         <form>
             <div id="name">
@@ -173,7 +100,103 @@ button{
             <button type="submit">Register</button>
        
         
-    </div>
-    
+    </div> -->
+
+    <!-- <div class="container bgimg text-center"> -->
+        <div class="login-box caption">
+            <div class="login-logo" >
+                <a href="#" ><b>RENT</b> TO GO</a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="card">
+                <div class="card-body login-card-body" >
+                    <p class="login-box-msg">สมัคสมาชิก</p>
+
+                    <form action="#" method="post">
+                        <!-- <div class="form-group has-feedback">
+                        <input type="email" class="form-control" placeholder="Email">
+                        <span class="fa fa-envelope form-control-feedback"></span>
+                    </div> -->
+                        <!-- <div class="form-group has-feedback">
+                        <input type="email" class="form-control" placeholder="Email">
+                        <span class="fa fa-envelope form-control-feedback"></span>
+                    </div> -->
+
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="ชื่อผู้ใช้"
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-user"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <input type="email" class="form-control" placeholder="EMAIL"
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-envelope"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <input type="email" class="form-control" placeholder="รหัสผ้าน"
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-lock"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <input type="email" class="form-control" placeholder="ยืนยันรหัสผ้าน"
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-key"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- <div class="col-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
+                                        style="position: relative;"><input type="checkbox"
+                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
+                                            class="iCheck-helper"
+                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                    </div> Remember Me
+                                </label>
+                            </div>
+                        </div> -->
+                            <!-- /.col -->
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-block">สมัคสมาชิก</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+
+                    <div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fa fa-facebook mr-2"></i> เข้าสู่ระบบด้วย Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fa fa-google-plus mr-2"></i> เข้าสู่ระบบด้วย Google+
+                        </a>
+                    </div>
+                    <!-- /.social-auth-links -->
+
+                    <!-- <p class="mb-1">
+                    <a href="#">I forgot my password</a>
+                </p> -->
+                    <p class="mb-0 text-center">
+                        <a href="/login" class="text-center">มีสมัคสมาชิกแล้ว</a>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+    <!-- </div> -->
 </body>
+
 </html>

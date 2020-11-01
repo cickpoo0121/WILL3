@@ -124,12 +124,23 @@ app.get("/", (req, res) => {
     // res.render("home.ejs", {user: req.user});
 });
 
-//Return manageUser page
+//Return login page
+app.get("/login", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/login.html"))
+});
+
+//Return register page
+app.get("/register", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/register.html"))
+});
+
+
+//Return Admin page
 app.get("/admin", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/adminhome.html"));
 });
 
-//Return manageUser page
+//Return Shop page
 app.get("/carshop", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/carshop.html"));
 });
@@ -143,6 +154,13 @@ app.get("/findCar", function (req, res) {
 app.get("/carrent", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/carrent.html"))
 });
+
+//Return map page
+app.get("/map", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/map.html"))
+});
+
+
 
 
 // ========== Starting server ============
