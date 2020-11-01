@@ -39,20 +39,21 @@
     <script src="https://devbanban.com/app/carrent/asset/dist/js/adminlte.min.js"></script>
     <script src="https://devbanban.com/app/carrent/asset/dist/js/demo.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    <script
+        src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet"></script>
+    <!-- Esri Leaflet Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css" />
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+    <!-- <link href="/dist/searchbox.css" rel="stylesheet" /> -->
     <style type="text/css">
         .sidebar-toggle {
             height: 34;
@@ -70,10 +71,12 @@
 
     <script>
         $(document).ready(function () {
+
+            $('#menubar').click(function (e) {
+                // $('#search').toggle();
+            });
+
             var mymap = L.map('map');
-            // var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-
-
             // set map
             L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -113,56 +116,6 @@
 
             routeControl.hide();
 
-            // var routeControl = L.Routing.control({
-            // waypoints: [
-            //     L.latLng(20.227246, 99.695042),
-            //     L.latLng(20.238626, 99.664415)
-            // ],
-            // // waypoints: [array object of stops],
-            // // geocoder: L.Control.Geocoder.nominatim(),
-            // routeWhileDragging: true,
-            // reverseWaypoints: true,
-            // showAlternatives: true,
-            // altLineOptions: {
-            //     styles: [
-            //         { color: 'black', opacity: 0.15, weight: 9 },
-            //         // { color: 'white', opacity: 0.8, weight: 6 },
-            //         // { color: 'blue', opacity: 0.5, weight: 2 }
-            //     ]}
-
-            // // routeWhileDragging: false,
-            //     // lineOptions: {
-            //     //     styles: [{ color: 'green', opacity: 1, weight: 5 }]
-            //     // },
-
-
-            // }).addTo(mymap);
-
-            // var routeControl = L.Routing.control({
-            // waypoints: [
-            //     L.latLng(13.74119, 100.52357),
-            //     L.latLng(13.73217, 100.52301)
-            // ],
-            // // waypoints: [array object of stops],
-            // // geocoder: L.Control.Geocoder.nominatim(),
-            // routeWhileDragging: true,
-            // reverseWaypoints: true,
-            // showAlternatives: true,
-            // altLineOptions: {
-            //     styles: [
-            //         { color: 'black', opacity: 0.15, weight: 9 },
-            //         // { color: 'white', opacity: 0.8, weight: 6 },
-            //         // { color: 'blue', opacity: 0.5, weight: 2 }
-            //     ]}
-
-            // // routeWhileDragging: false,
-            //     // lineOptions: {
-            //     //     styles: [{ color: 'green', opacity: 1, weight: 5 }]
-            //     // },
-
-
-            // }).addTo(mymap);
-
             // routeControl.on('routesfound', function (e) {
             //     var routes = e.routes;
             //     var summary = routes[0].summary;
@@ -171,17 +124,30 @@
             // });
 
 
+            var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
 
-            // circle area
-            var circle = L.circle([19.01409, 99.33563], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5,
-                radius: 500
-            }).addTo(mymap);
+            // create an empty layer group to store the results and add it to the map
+            var results = L.layerGroup().addTo(mymap);
 
-            // marker
-            var marker = L.marker([20.227508, 99.694699]).addTo(mymap);
+            // listen for the results event and add every result to the map
+            searchControl.on("results", function (data) {
+                results.clearLayers();
+                for (var i = data.results.length - 1; i >= 0; i--) {
+                    results.addLayer(L.marker(data.results[i].latlng));
+                }
+            });
+
+            var searchControlA = L.esri.Geocoding.geosearch().addTo(mymap);
+            var A = L.layerGroup().addTo(mymap);
+
+            searchControlA.on('results', function (data) {
+                A.clearLayers();
+                for (var i = data.results.length - 1; i >= 0; i--) {
+                    A.addLayer(L.marker(data.results[i].latlng));
+
+                }
+                console.log(data)
+            });
 
             // pop up content
             // marker.bindPopup("<b>Hello world!</b><br>Test Test").openPopup();
@@ -202,116 +168,210 @@
     </script>
 </head>
 
-<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; ">
-    <!-- <div id="map"></div> -->
-    <div class="wrapper" style="height: auto; min-height: 100%;">
-        <header class="main-header">
-            <!-- Logo -->
-            <a href="" class="logo" id="log1" style="height: 50;background-color: #8dcff4;">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini " style="color: black; ""><b">Rent </b>To Go</span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg " style="color: black;"><strong>Rent </strong>To Go</span>
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" style="background-color: #8dcff4;">
-                <!-- Sidebar toggle button-->
+<body>
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <!-- <a href="#" class="navbar-brand">Brand</a> -->
+        <img src="assets\images\logo.png" style="height:30px;">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" id="menubar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <a href="#" class="mt-2" data-toggle="push-menu"><span class="fa fa-bars"
-                        style="color: black;"></span></a>
-
-                <!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" style="color:black;"> -->
-                <!-- <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> -->
-                <!-- </a> -->
-
-            </nav>
-        </header>
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                    </div>
-                    <div class="pull-left image mt-3 text-center" style="color: white;height: 20%;">
-                        <p><span class="fas fa-user" style="font-size: 20px;"></span> Mr.Admin01</p>
-                        <!-- <a href=" #"><i class="fa fa-circle text-success"></i> Online</a> -->
-                    </div>
-                </div>
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu tree" data-widget="tree">
-                    <li class="header text-center" style="color: white;font-size: medium;">เมนู</li>
-                    <li><a href="/admin"><i class="fa fa-home"></i>
-                            <span>หน้าแรก</span></a></li>
-                    <li><a href="/carshop"><i class="fa fa-car"></i>
-                            <span>รายการรถ</span></a></li>
-                    <!-- <li><a href="/admin"><i class="fa fa-circle"></i>
-                            <span>Admin/Member</span></a></li> -->
-                    <!-- <li><a href="https://devbanban.com/app/carrent/renting"><i class="fa fa-circle"></i>
-                            <span>วิธีการเช่า</span></a></li>
-                    <li><a href="https://devbanban.com/app/carrent/contact/clients"><i class="fa fa-circle"></i>
-                            <span>การติดต่อ</span></a></li>
-                    <li class="header">ตั้งค่าเว็บไซต์</li>
-                    <li><a href="https://devbanban.com/app/carrent/about"><i class="fa fa-info-circle"></i>
-                            <span>เกี่ยวกับ/About</span></a></li>
-                    <li><a href="https://devbanban.com/app/carrent/contact"><i class="fa fa-info-circle"></i>
-                            <span>ติดต่อ</span></a></li> -->
-                    <li><a href="/" onclick="return confirm('do you want to logout ?');"><i class="fa fa-edit"></i>
-                            <span>Logout</span></a></li>
-                </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-        <div class="content-wrapper" style="min-height: 621px;">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    จัดการข้อมูลรถเช่า
-                </h1>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <!-- Your Page Content Here -->
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">ตารางข้อมูล</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <button class="btn btn-success" data-toggle="modal"
-                                    data-target="#addcar">เพิ่มข้อมูล</button>
-                            </div>
-                            <div class="col-sm-6">
-                            </div>
-
-                        </div>
-                        <div class="row text-center mt-4">
-                            <div class="col-sm-12">
-                                <div id="map"></div>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
-                </div>
-            </section><!-- /.content -->
-        </div><!-- /.content-wrapper -->
-
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Website @ 2020</b>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="#" class="nav-item nav-link active">หน้าแรก</a>
+                <a href="#" class="nav-item nav-link">คำถามที่พบบ่อย</a>
+                <!-- <a href="#" class="nav-item nav-link">Messages</a>
+                <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
             </div>
-            <strong>Your text</strong>
-        </footer>
-        <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
-    <!-- ./wrapper -->
+            <div class="navbar-nav ml-auto">
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn my-2 my-sm-0 text-white" style="background-color: #00a8ec;"
+                        type="submit">เข้าสู่ระบบ</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <!-- <div class="row"> -->
+        <!-- <div class="col-sm-12 bg-dark"> -->
+        <div class="my-4">
+            <div class="row justify-content-around " id="search">
 
+                <!-- <div class="col-sm-4 bg-danger"> -->
+                <!-- <label style="color:white;">ต้นทาง</label> -->
+                <input type="text" class="form-control" id=""
+                    style="border: 1px solid #8dcff4;border-radius: 5px;width: 30%;" placeholder="ต้นทาง">
+                <!-- </div> -->
+
+                <!-- <div class="col-sm-4 bg-primary"> -->
+                <!-- <label style="color:white;">ปลายทาง</label> -->
+                <input type="text" class="form-control" id=""
+                    style="border: 1px solid #8dcff4;border-radius: 5px;width: 30%;" placeholder="ปลายทาง">
+                <!-- </div> -->
+                <!-- <div class="col-sm-4 bg-dark"> -->
+                <button class="btn" style="background-color:#00a8ec;width: 20%;color: white;">ค้นหา</button>
+                <!-- </div> -->
+
+            </div>
+        </div>
+
+        <!-- </div> -->
+        <!-- </div> -->
+        <br>
+        <div class="row">
+            <!-- <div class="col-sm-1">
+            </div> -->
+            <div class="col-sm-12" id="map" style="height: 500;">
+
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="page-footer font-small pt-4 text-white mt-5" style="background-color: #8dcff4;">
+
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-4 mx-auto">
+
+                    <!-- Content -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">ติดต่อเรา</h5>
+                    <p>มหาวิทยาลัยแม่ฟ้าหลวง 333 หมู่ 1 ตำบล ท่าสุด อำเภอ เมืองเชียงราย จังหวัด เชียงราย รหัสไปรษณีย์
+                        57100
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+
+        <hr class=" hrfooter ">
+
+
+        <!-- Social buttons -->
+        <ul class="list-unstyled list-inline text-center">
+            <li class="list-inline-item">
+                <a class="btn-floating btn-fb mx-1">
+                    <i class="fab fa-facebook-f"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-tw mx-1">
+                    <i class="fab fa-twitter "> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-gplus mx-1">
+                    <i class="fab fa-google-plus-g"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-li mx-1">
+                    <i class="fab fa-linkedin-in"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn-floating btn-dribbble mx-1">
+                    <i class="fab fa-dribbble"> </i>
+                </a>
+            </li>
+        </ul>
+        <!-- Social buttons -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 prima ">© 2020 Copyright:
+
+        </div>
+        <!-- Copyright -->
+
+    </footer>
 </body>
 
 </html>

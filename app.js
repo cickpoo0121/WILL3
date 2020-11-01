@@ -160,6 +160,11 @@ app.get("/map", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/map.html"))
 });
 
+//Return test page
+app.get("/test", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/test.html"))
+});
+
 
 
 
