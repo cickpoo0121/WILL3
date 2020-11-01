@@ -144,6 +144,21 @@ app.get("/carrent", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/carrent.html"))
 });
 
+//Return travel page
+app.get("/travelplan", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/travelplan.html"))
+});
+
+//Return payment page
+app.get("/payment", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/payment.html"))
+});
+
+//Return booking page
+app.get("/booking", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/booking.html"))
+});
+
 
 // ========== Starting server ============
 const PORT = 35000
