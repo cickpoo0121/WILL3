@@ -155,6 +155,7 @@ app.get("/carrent", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/carrent.html"))
 });
 
+
 //Return map page
 app.get("/map", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/map.html"))
@@ -165,6 +166,21 @@ app.get("/test", function (req, res) {
     res.sendFile(path.join(__dirname, "/views/test.html"))
 });
 
+
+//Return travel page
+app.get("/travelplan", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/travelplan.html"))
+});
+
+//Return payment page
+app.get("/payment", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/payment.html"))
+});
+
+//Return booking page
+app.get("/booking", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/booking.html"))
+});
 
 
 

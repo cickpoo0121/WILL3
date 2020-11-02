@@ -43,11 +43,11 @@
         background-color: #00a8ec;
     }
 
-    .btnfind {
+    #btnfind {
         background-color: #00a8ec;
         position: absolute;
-        top: 59%;
-        left: 31%;
+        top: 89%;
+        left: 33%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
 
@@ -58,6 +58,51 @@
         cursor: pointer;
         border-radius: 5px;
     }
+
+    #textfind {
+        background-color: #ffd75d;
+        position: absolute;
+        top: 49%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        width: 25%;
+        height: 6%;
+
+    }
+    #textfind2 {
+        background-color: #ffd75d;
+        position: absolute;
+        top: 59%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        width: 25%;
+        height: 6%;
+
+    }
+    #textfind3 {
+        background-color: #ffd75d;
+        position: absolute;
+        top: 69%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        width: 25%;
+        height: 6%;
+
+    }
+    #textfind4 {
+        background-color: #ffd75d;
+        position: absolute;
+        top: 79%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        width: 25%;
+        height: 6%;
+
+    }
 </style>
 <nav class="navbar navbar-expand-sm ">
 
@@ -66,7 +111,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavId ">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link text-dark" href="#">หน้าแรก<span class="sr-only">(current)</span></a>
+                <a class="nav-link text-dark" href="/">หน้าแรก<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="#">คำถามที่พบบ่อย</a>
@@ -81,14 +126,17 @@
 </nav>
 
 <div class="container">
-    <img src="assets\images\car.png" style="width: 1320px;">
-    <a href="/findCar"> <button class="btnfind" type="submit">ค้นหารถเช่า</button></a>
+    <img src="assets\images\travel.png" style="width: 1313px;" >
+    <input type="text"  id="textfind" class="form-control" placeholder="สถานที่เริ่มต้น">
+    <input type="text"  id="textfind2" class="form-control" placeholder="สถานที่ปลายทาง">
+    <input type="text"  id="textfind3" class="form-control" placeholder="ระยะเวลาในการท่องเที่ยว  (ชั่วโมง)">
+    <input type="text"  id="textfind4" class="form-control" placeholder="จำนวนเงิน  (บาท)">
+
+    <a href="/findCar"> <button id="btnfind" type="submit">สร้างแผนท่องเที่ยว</button></a>
+    
 </div>
 
 
-<div>
-    <img src="assets\images\process.png " style="width: 1516px;">
-</div>
 
 <div class="mb-5">
 
@@ -198,8 +246,6 @@
     <!-- Footer Links -->
 
     <hr class=" hrfooter ">
-
-
 
 
     <!-- Copyright -->
