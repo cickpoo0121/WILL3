@@ -54,6 +54,21 @@
 
 
 <!-- </body> -->
+<script>
+    $(document).ready(function () {
+        $('#login').click(function (e) {
+            var username = $('#username').val();
+            alert(username);
+            if (username == 'username') {
+                window.location.replace('/')
+            }
+            if (username == 'admin') {
+                window.location.replace('/admin')
+            }
+
+        });
+    });
+</script>
 
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -65,7 +80,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">เข้าสู่ระบบ</p>
 
-                <form action="#" method="post">
+                <!-- <form action="#" method="post"> -->
                     <!-- <div class="form-group has-feedback">
                         <input type="email" class="form-control" placeholder="Email">
                         <span class="fa fa-envelope form-control-feedback"></span>
@@ -76,7 +91,7 @@
                     </div> -->
 
                     <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้"
+                        <input type="text" class="form-control" id="username" placeholder="ชื่อผู้ใช้"
                             aria-label="Input group example" aria-describedby="btnGroupAddon">
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-user"></i></div>
@@ -84,8 +99,8 @@
                     </div>
 
                     <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="รหัสผ้าน"
-                            aria-label="Input group example" aria-describedby="btnGroupAddon">
+                        <input type="text" class="form-control" placeholder="รหัสผ้าน" aria-label="Input group example"
+                            aria-describedby="btnGroupAddon">
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-lock"></i></div>
                         </div>
@@ -106,11 +121,11 @@
                         </div> -->
                         <!-- /.col -->
                         <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
+                            <button type="submit" class="btn btn-primary btn-block" id="login">เข้าสู่ระบบ</button>
                         </div>
                         <!-- /.col -->
                     </div>
-                </form>
+                <!-- </form> -->
 
                 <div class="social-auth-links text-center mb-3">
                     <p>- OR -</p>
