@@ -63,11 +63,6 @@
             height: 51;
         }
 
-        #map {
-            height: 750px;
-
-        }
-
         img {
             max-width: 100%;
             max-height: 100%;
@@ -92,149 +87,76 @@
     <script>
         $(document).ready(function () {
 
-            var latlngtest = [
-                L.latLng(18.796143, 98.979263),
-                L.latLng(19.90858, 99.8325),
-                L.latLng(20.352439, 99.825107)
-            ]
-            var latlng = []
-            var placeName = [];
-            var marker = [];
-            var tripid = sessionStorage.TripID;
+            var tripTable
+            var tripid
+            $.ajax({
+                method: "GET",
+                url: "/tripName",
+                success: function (data) {
+
+                    tripTable = $("#tripTable").DataTable({
+                        "searching": false,
+                        "paging": true,
+                        "ordering": false,
+                        "info": false,
+                        "lengthChange": false,
+                        deferRender: true,
+                        columns: [
+                            { data: "TripID", "visible": false },
+                            { data: "No", title: "ลำดับ" },
+                            { data: "TripName", title: "ชื่อทิป" },
+                            { defaultContent: "<button id='btnPrint' class='btn btn-primary text-light'>เลือก</button> ", orderable: false, title: "เลือกทิป" },
+                        ],
+                        responsive: true
+                    });
+
+
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].No = i + 1
+                    }
+
+                    console.log(data)
+                    tripTable.clear();
+                    tripTable.rows.add(data).draw();
+
+                    $('#tripTable tbody').on('click', 'td', function () {
+                        var data = tripTable.row(this).data();
+                        tripid = data.TripID
+                        console.log(tripid)
+                        if (tripid != null) {
+                            // localStorage.TripID = tripid
+                            sessionStorage.TripID = tripid
+                            window.location.replace('/map')
+                        } else {
+                            alert("กรุณาเลือกแผนการท่องเที่ยว")
+                        }
+
+
+                    });
+
+                    $('#mappage').click(function (e) {
+                        if (tripid == null) {
+                            alert("กรุณาเลือกแผนการท่องเที่ยว")
+                        }
+                        else {
+                            window.location.replace('/map')
+                        }
+
+                    });
+
+                    $('#searchBick').click(function (e) {
+                        window.open('https://www.facebook.com/rent2gotravel/','_blank');
+
+                    });
+                }
+            });
 
             $("#logout").click(function () {
                 sessionStorage.removeItem('TripID');
                 window.location.replace('/')
             })
 
-            $('#searchBick').click(function (e) {
-                window.open('https://www.facebook.com/rent2gotravel/', '_blank');
 
-            });
-
-            $.ajax({
-                method: "GET",
-                url: "/latlng/" + tripid,
-                success: function (data) {
-                    setview = Math.round(data.length / 2);
-
-                    // var mymap = L.map('map');
-                    mymap = L.map('map').setView([data[setview].Lat, data[setview].Longti], 10);
-                    console.log(tripid)
-                    // set map
-                    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                        maxZoom: 18,
-                        // id: 'mapbox/streets-v11',
-                        // style: 'mapbox://styles/mapbox/streets-v11',
-                        tileSize: 512,
-                        zoomOffset: -1,
-                        accessToken: 'pk.eyJ1IjoiY2lja3Bvb2wiLCJhIjoiY2tiODA0dHc2MDlpMTM1cGZwdDJxNTNkdiJ9.Jfs-Dx_mpZFNuSKfqwNykA',
-                    }).addTo(mymap);
-
-
-                    for (var i = 0; i < data.length; i++) {
-                        lat = parseFloat(data[i].Lat)
-                        lng = parseFloat(data[i].Longti)
-                        latlng.push(L.latLng(lat, lng));
-                        placeName.push(data[i].Name);
-                        waypointIndex = data.length;
-                        // marker[i] = L.marker([data[i].Lat, data[i].Longti]).addTo(mymap);
-                        // marker[i].on('click', L.bind(onMapClick, null, i))
-
-                    }
-                    console.log(latlngtest)
-                    // JSON.parse(latlng);
-                    console.log(latlng[0])
-                    var routeControl = L.Routing.control({
-
-                        waypoints: latlng,
-                        // waypoints: [array object of stops],
-                        // geocoder: L.Control.Geocoder.nominatim(),
-
-                        // createMarker()
-                        createMarker: function (i, wp) {
-                            return L.marker(wp.latLng).on('click', L.bind(onMapClick, null, i))
-
-                            // .bindPopup(function () {
-
-                            // })
-
-                        },
-
-                        routeWhileDragging: true,
-                        reverseWaypoints: true,
-                        showAlternatives: true,
-                        altLineOptions: {
-                            styles: [
-                                { color: 'black', opacity: 0.15, weight: 9 },
-                                // { color: 'white', opacity: 0.8, weight: 6 },
-                                // { color: 'blue', opacity: 0.5, weight: 2 }
-                            ]
-                        }
-
-                        // routeWhileDragging: false,
-                        // lineOptions: {
-                        //     styles: [{ color: 'green', opacity: 1, weight: 5 }]
-                        // },
-
-
-                    }).addTo(mymap);
-                    // marker.bindPopup("<b>Hello world!</b><br>Test Test").openPopup()
-
-
-
-
-                    function onMapClick(i) {
-                        $('#placeName').text(data[i].Name)
-                        $('#tripImg').prop('src', '/assets/images/' + data[i].Picture + '')
-                        $('#modelId').modal()
-                        // alert(data[i].Name);
-                    }
-
-
-                    routeControl.hide();
-
-                    var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
-
-                    // create an empty layer group to store the results and add it to the map
-                    var results = L.layerGroup().addTo(mymap);
-
-                    // listen for the results event and add every result to the map
-                    searchControl.on("results", function (data) {
-                        results.clearLayers();
-                        for (var i = data.results.length - 1; i >= 0; i--) {
-                            results.addLayer(L.marker(data.results[i].latlng));
-                        }
-                    });
-
-                    var searchControlA = L.esri.Geocoding.geosearch().addTo(mymap);
-                    var A = L.layerGroup().addTo(mymap);
-
-                    searchControlA.on('results', function (data) {
-                        A.clearLayers();
-                        for (var i = data.results.length - 1; i >= 0; i--) {
-                            A.addLayer(L.marker(data.results[i].latlng));
-
-                        }
-                        console.log(data)
-                    });
-                }
-            });
-
-
-            // routeControl.on('routesfound', function (e) {
-            //     var routes = e.routes;
-            //     var summary = routes[0].summary;
-            //     // alert distance and time in km and minutes
-            //     // alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
-            // });
-
-
-
-
-            // pop up content
-            // marker.bindPopup("<>Hello world!</><br>Test Test").openPopup();
 
 
         });
@@ -252,18 +174,17 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <!-- <a href="/" class="nav-item nav-link ">หน้าแรก</a> -->
-                <a href="/selectTrip" class="nav-item nav-link ">แผนการท่องเที่ยว</a>
-                <a href="#" class="nav-item nav-link active">แผ่นที่</a>
-                <a href="https://www.facebook.com/rent2gotravel/" class="nav-item nav-link"
-                    id="searchBick">มองหารถเช่า</a>
-                <!-- <a href="#" class="nav-item nav-link">คำถามที่พบบ่อย</a> -->
+                <a href="#" class="nav-item nav-link active">แผนการท่องเที่ยว</a>
+                <a href="" class="nav-item nav-link" id="mappage">แผ่นที่</a>
+                <a href="" class="nav-item nav-link" id="searchBick">มองหารถเช่า</a>
+                <!-- <a href="" class="nav-item nav-link">คำถามที่พบบ่อย</a> -->
                 <!-- <a href="#" class="nav-item nav-link">Messages</a>
                 <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
             </div>
             <div class="navbar-nav ml-auto">
                 <!-- <form class="form-inline my-2 my-lg-0"> -->
 
-                <button class="btn my-2 my-sm-0 text-white" style="background-color: #00a8ec;"
+                <button class="btn my-2 my-sm-0 text-white" id="logout" style="background-color: #00a8ec;"
                     type="submit">ออกจากระบบ</button>
                 <!-- </form> -->
             </div>
@@ -281,7 +202,7 @@
                 <!-- <input type="text" class="form-control" id=""
                     style="border: 1px solid #8dcff4;border-radius: 5px;width: 30%;" placeholder="ต้นทาง"> -->
                 <!-- </div> -->
-                <h3>แผ่นที่ประกอบการท่องเที่ยว</h3>
+                <h3>แผนการท่องเที่ยว</h3>
                 <!-- <div class="col-sm-4 bg-primary"> -->
                 <!-- <label style="color:white;">ปลายทาง</label> -->
                 <!-- <input type="text" class="form-control" id=""
@@ -298,12 +219,14 @@
         <!-- </div> -->
         <br>
         <div class="row">
-            <!-- <div class="col-sm-1">
-            </div> -->
-            <div class="col-sm-12" id="map" style="height: 500;">
-
+            <!-- <div class="col-sm-1"></div> -->
+            <div class="col-md-12">
+                <table id="tripTable" class="table table-bordered text-center" align="center" style="width:100%">
+                </table>
             </div>
+            <!-- <div class="col-sm-1"></div> -->
         </div>
+    </div>
     </div>
     <!-- Footer -->
     <footer class="page-footer font-small pt-4 text-white mt-5" style="background-color: #00a8ec;">
@@ -451,30 +374,6 @@
 
     </footer>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="placeName">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <img id="tripImg" src="">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

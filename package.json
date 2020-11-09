@@ -1,20 +1,22 @@
 {
-  "name": "karen_software",
+  "name": "will3",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mukuro557/Karen_software.git"
+    "url": "git+https://github.com/cickpoo0121/WILL3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mukuro557/Karen_software/issues"
+    "url": "https://github.com/cickpoo0121/WILL3/issues"
   },
-  "homepage": "https://github.com/mukuro557/Karen_software#readme",
+  "homepage": "https://github.com/cickpoo0121/WILL3#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -32,5 +34,9 @@
     "xlsx": "^0.16.8"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "12.18.3",
+    "npm": "6.14.6"
+  }
 }
