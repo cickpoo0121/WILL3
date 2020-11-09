@@ -102,16 +102,28 @@ app.put("/item/addImage", function (req, res) {
     })
 });
 
-// // Load info of commitee
-app.get("/adminhistorytableEmailCommittee/info/:year", function (req, res) {
-    const Year = req.params.year;
-    const sql = "SELECT DISTINCT Email_Committee FROM item WHERE Year = ? AND Email_Committee IS NOT NULL "
-    con.query(sql, [Year], function (err, result, fields) {
+// // Load lat lng of trip place
+app.get("/latlng/:Tripid", function (req, res) {
+    const Tripid = req.params.Tripid;
+    const sql = "SELECT * FROM latlong latlng,tripinfor trip WHERE latlng.TripID=trip.TripID and latlng.TripID=?"
+    con.query(sql, [Tripid], function (err, result, fields) {
         if (err) {
             res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
         } else {
             res.json(result)
+        }
+    })
+});
 
+// // Load lat lng of trip place
+app.get("/tripName", function (req, res) {
+    const Tripid = req.params.Tripid;
+    const sql = "SELECT * FROM `tripinfor`"
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
+        } else {
+            res.json(result)
         }
     })
 });
@@ -183,9 +195,15 @@ app.get("/booking", function (req, res) {
 });
 
 
+//Return booking page
+app.get("/selectTrip", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/selectTrip.html"))
+});
+
 
 // ========== Starting server ============
-const PORT = 35000
+
+const PORT = process.env.PORT|| 35000
 app.listen(PORT, function () {
     console.log("Server is running at " + PORT);
 });
