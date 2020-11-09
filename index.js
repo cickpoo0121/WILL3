@@ -66,25 +66,31 @@ app.use("/assets/images", express.static(path.join(__dirname, '/assets/images'))
 
 
 
+//TODO: test deploy
+app.get('/', (req, res)=>{
+    res.json({ result: 'OK', datail: [1, 2, 3, 4, 5,] })
+})
+
+
 
 //================== Services (functions) ===================
 
 // ============= Upload ==============
-app.post("/uploading/:email", function (req, res) {
-    const email = req.params.email
-    upload(req, res, function (err) {
-        if (err) {
-            // An unknown error occurred when uploading.
-            res.status(500).send("ไม่สามารถอัพโหลดไฟล์นี้ได้");
-            return;
-        }
-        // Everything went fine.
-        console.log(email)
-        importExelData2MySQL(res, __dirname + '/upload/Exel/' + req.file.filename, email)
-        console.log(req.file.filename)
-        // res.status(200).send("บันทึกสำเร็จ");
-    })
-});
+// app.post("/uploading/:email", function (req, res) {
+//     const email = req.params.email
+//     upload(req, res, function (err) {
+//         if (err) {
+//             // An unknown error occurred when uploading.
+//             res.status(500).send("ไม่สามารถอัพโหลดไฟล์นี้ได้");
+//             return;
+//         }
+//         // Everything went fine.
+//         console.log(email)
+//         importExelData2MySQL(res, __dirname + '/upload/Exel/' + req.file.filename, email)
+//         console.log(req.file.filename)
+//         // res.status(200).send("บันทึกสำเร็จ");
+//     })
+// });
 
 
 // Add image to an item
