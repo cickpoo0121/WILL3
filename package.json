@@ -1,5 +1,5 @@
 {
-  "name": "karen_software",
+  "name": "will3",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mukuro557/Karen_software.git"
+    "url": "git+https://github.com/cickpoo0121/WILL3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mukuro557/Karen_software/issues"
+    "url": "https://github.com/cickpoo0121/WILL3/issues"
   },
-  "homepage": "https://github.com/mukuro557/Karen_software#readme",
+  "homepage": "https://github.com/cickpoo0121/WILL3#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
