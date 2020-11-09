@@ -66,12 +66,6 @@ app.use("/assets/images", express.static(path.join(__dirname, '/assets/images'))
 
 
 
-//TODO: test deploy
-app.get('/', (req, res)=>{
-    res.json({ result: 'OK', datail: [1, 2, 3, 4, 5,] })
-})
-
-
 
 //================== Services (functions) ===================
 
