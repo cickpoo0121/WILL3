@@ -54,6 +54,12 @@
     <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css" />
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
     <!-- <link href="/dist/searchbox.css" rel="stylesheet" /> -->
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk9nLEeUgSRh24COvS5D-Re-xgZNDaQ2k&callback=initMap&libraries=&v=weekly"
+        defer></script>
+
     <style type="text/css">
         .sidebar-toggle {
             height: 34;
@@ -90,154 +96,164 @@
     </style>
 
     <script>
-        $(document).ready(function () {
 
-            var latlngtest = [
-                L.latLng(18.796143, 98.979263),
-                L.latLng(19.90858, 99.8325),
-                L.latLng(20.352439, 99.825107)
-            ]
-            var latlng = []
-            var placeName = [];
-            var marker = [];
-            var tripid = sessionStorage.TripID;
+        let map;
 
-            $("#logout").click(function () {
-                sessionStorage.removeItem('TripID');
-                window.location.replace('/')
-            })
-
-            $('#searchBick').click(function (e) {
-                window.open('https://www.facebook.com/rent2gotravel/', '_blank');
-
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
             });
+        }
 
-            $.ajax({
-                method: "GET",
-                url: "/latlng/" + tripid,
-                success: function (data) {
-                    setview = Math.round(data.length / 2);
+        // $(document).ready(function () {
 
-                    // var mymap = L.map('map');
-                    mymap = L.map('map').setView([data[setview].Lat, data[setview].Longti], 10);
-                    console.log(tripid)
-                    // set map
-                    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                        maxZoom: 18,
-                        // id: 'mapbox/streets-v11',
-                        // style: 'mapbox://styles/mapbox/streets-v11',
-                        tileSize: 512,
-                        zoomOffset: -1,
-                        accessToken: 'pk.eyJ1IjoiY2lja3Bvb2wiLCJhIjoiY2tiODA0dHc2MDlpMTM1cGZwdDJxNTNkdiJ9.Jfs-Dx_mpZFNuSKfqwNykA',
-                    }).addTo(mymap);
+        //     var latlngtest = [
+        //         L.latLng(18.796143, 98.979263),
+        //         L.latLng(19.90858, 99.8325),
+        //         L.latLng(20.352439, 99.825107)
+        //     ]
+        //     var latlng = []
+        //     var placeName = [];
+        //     var marker = [];
+        //     var tripid = sessionStorage.TripID;
 
+        //     $("#logout").click(function () {
+        //         sessionStorage.removeItem('TripID');
+        //         window.location.replace('/')
+        //     })
 
-                    for (var i = 0; i < data.length; i++) {
-                        lat = parseFloat(data[i].Lat)
-                        lng = parseFloat(data[i].Longti)
-                        latlng.push(L.latLng(lat, lng));
-                        placeName.push(data[i].Name);
-                        waypointIndex = data.length;
-                        // marker[i] = L.marker([data[i].Lat, data[i].Longti]).addTo(mymap);
-                        // marker[i].on('click', L.bind(onMapClick, null, i))
+        //     $('#searchBick').click(function (e) {
+        //         window.open('https://www.facebook.com/rent2gotravel/', '_blank');
 
-                    }
-                    console.log(latlngtest)
-                    // JSON.parse(latlng);
-                    console.log(latlng[0])
-                    var routeControl = L.Routing.control({
+        //     });
 
-                        waypoints: latlng,
-                        // waypoints: [array object of stops],
-                        // geocoder: L.Control.Geocoder.nominatim(),
+        //     $.ajax({
+        //         method: "GET",
+        //         url: "/latlng/" + tripid,
+        //         success: function (data) {
+        //             setview = Math.round(data.length / 2);
 
-                        // createMarker()
-                        createMarker: function (i, wp) {
-                            return L.marker(wp.latLng).on('click', L.bind(onMapClick, null, i))
-
-                            // .bindPopup(function () {
-
-                            // })
-
-                        },
-
-                        routeWhileDragging: true,
-                        reverseWaypoints: true,
-                        showAlternatives: true,
-                        altLineOptions: {
-                            styles: [
-                                { color: 'black', opacity: 0.15, weight: 9 },
-                                // { color: 'white', opacity: 0.8, weight: 6 },
-                                // { color: 'blue', opacity: 0.5, weight: 2 }
-                            ]
-                        }
-
-                        // routeWhileDragging: false,
-                        // lineOptions: {
-                        //     styles: [{ color: 'green', opacity: 1, weight: 5 }]
-                        // },
+        //             // var mymap = L.map('map');
+        //             mymap = L.map('map').setView([data[setview].Lat, data[setview].Longti], 10);
+        //             console.log(tripid)
+        //             // set map
+        //             L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        //                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        //                 maxZoom: 18,
+        //                 // id: 'mapbox/streets-v11',
+        //                 // style: 'mapbox://styles/mapbox/streets-v11',
+        //                 tileSize: 512,
+        //                 zoomOffset: -1,
+        //                 accessToken: 'pk.eyJ1IjoiY2lja3Bvb2wiLCJhIjoiY2tiODA0dHc2MDlpMTM1cGZwdDJxNTNkdiJ9.Jfs-Dx_mpZFNuSKfqwNykA',
+        //             }).addTo(mymap);
 
 
-                    }).addTo(mymap);
-                    // marker.bindPopup("<b>Hello world!</b><br>Test Test").openPopup()
+        //             for (var i = 0; i < data.length; i++) {
+        //                 lat = parseFloat(data[i].Lat)
+        //                 lng = parseFloat(data[i].Longti)
+        //                 latlng.push(L.latLng(lat, lng));
+        //                 placeName.push(data[i].Name);
+        //                 waypointIndex = data.length;
+        //                 // marker[i] = L.marker([data[i].Lat, data[i].Longti]).addTo(mymap);
+        //                 // marker[i].on('click', L.bind(onMapClick, null, i))
+
+        //             }
+        //             console.log(latlngtest)
+        //             // JSON.parse(latlng);
+        //             console.log(latlng[0])
+        //             var routeControl = L.Routing.control({
+
+        //                 waypoints: latlng,
+        //                 // waypoints: [array object of stops],
+        //                 // geocoder: L.Control.Geocoder.nominatim(),
+
+        //                 // createMarker()
+        //                 createMarker: function (i, wp) {
+        //                     return L.marker(wp.latLng).on('click', L.bind(onMapClick, null, i))
+
+        //                     // .bindPopup(function () {
+
+        //                     // })
+
+        //                 },
+
+        //                 routeWhileDragging: true,
+        //                 reverseWaypoints: true,
+        //                 showAlternatives: true,
+        //                 altLineOptions: {
+        //                     styles: [
+        //                         { color: 'black', opacity: 0.15, weight: 9 },
+        //                         // { color: 'white', opacity: 0.8, weight: 6 },
+        //                         // { color: 'blue', opacity: 0.5, weight: 2 }
+        //                     ]
+        //                 }
+
+        //                 // routeWhileDragging: false,
+        //                 // lineOptions: {
+        //                 //     styles: [{ color: 'green', opacity: 1, weight: 5 }]
+        //                 // },
 
 
-
-
-                    function onMapClick(i) {
-                        $('#placeName').text(data[i].Name)
-                        $('#tripImg').prop('src', '/assets/images/' + data[i].Picture + '')
-                        $('#modelId').modal()
-                        // alert(data[i].Name);
-                    }
-
-
-                    routeControl.hide();
-
-                    var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
-
-                    // create an empty layer group to store the results and add it to the map
-                    var results = L.layerGroup().addTo(mymap);
-
-                    // listen for the results event and add every result to the map
-                    searchControl.on("results", function (data) {
-                        results.clearLayers();
-                        for (var i = data.results.length - 1; i >= 0; i--) {
-                            results.addLayer(L.marker(data.results[i].latlng));
-                        }
-                    });
-
-                    var searchControlA = L.esri.Geocoding.geosearch().addTo(mymap);
-                    var A = L.layerGroup().addTo(mymap);
-
-                    searchControlA.on('results', function (data) {
-                        A.clearLayers();
-                        for (var i = data.results.length - 1; i >= 0; i--) {
-                            A.addLayer(L.marker(data.results[i].latlng));
-
-                        }
-                        console.log(data)
-                    });
-                }
-            });
-
-
-            // routeControl.on('routesfound', function (e) {
-            //     var routes = e.routes;
-            //     var summary = routes[0].summary;
-            //     // alert distance and time in km and minutes
-            //     // alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
-            // });
+        //             }).addTo(mymap);
+        //             // marker.bindPopup("<b>Hello world!</b><br>Test Test").openPopup()
 
 
 
 
-            // pop up content
-            // marker.bindPopup("<>Hello world!</><br>Test Test").openPopup();
+        //             function onMapClick(i) {
+        //                 $('#placeName').text(data[i].Name)
+        //                 $('#tripImg').prop('src', '/assets/images/' + data[i].Picture + '')
+        //                 $('#modelId').modal()
+        //                 // alert(data[i].Name);
+        //             }
 
 
-        });
+        //             routeControl.hide();
+
+        //             var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
+
+        //             // create an empty layer group to store the results and add it to the map
+        //             var results = L.layerGroup().addTo(mymap);
+
+        //             // listen for the results event and add every result to the map
+        //             searchControl.on("results", function (data) {
+        //                 results.clearLayers();
+        //                 for (var i = data.results.length - 1; i >= 0; i--) {
+        //                     results.addLayer(L.marker(data.results[i].latlng));
+        //                 }
+        //             });
+
+        //             var searchControlA = L.esri.Geocoding.geosearch().addTo(mymap);
+        //             var A = L.layerGroup().addTo(mymap);
+
+        //             searchControlA.on('results', function (data) {
+        //                 A.clearLayers();
+        //                 for (var i = data.results.length - 1; i >= 0; i--) {
+        //                     A.addLayer(L.marker(data.results[i].latlng));
+
+        //                 }
+        //                 console.log(data)
+        //             });
+        //         }
+        //     });
+
+
+        //     // routeControl.on('routesfound', function (e) {
+        //     //     var routes = e.routes;
+        //     //     var summary = routes[0].summary;
+        //     //     // alert distance and time in km and minutes
+        //     //     // alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+        //     // });
+
+
+
+
+        //     // pop up content
+        //     // marker.bindPopup("<>Hello world!</><br>Test Test").openPopup();
+
+
+        // });
     </script>
 </head>
 
