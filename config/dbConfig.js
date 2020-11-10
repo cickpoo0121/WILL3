@@ -9,7 +9,7 @@
     host    : 'us-cdbr-east-02.cleardb.com',
     user    : 'b9700c9627b485',
     password: '100ee018',
-    database: 'heroku_cbd38efa52b81e8'
+    database: 'will3'
   };
    
 module.exports = config;
