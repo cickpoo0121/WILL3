@@ -239,8 +239,8 @@ app.get("/test", function (req, res) {
 // });
 
 //Return tripinfor page
-app.get("/tripinfor", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/tripinfor.html"))
+app.get("/tripinformation", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/tripInfor.html"))
 });
 
 
