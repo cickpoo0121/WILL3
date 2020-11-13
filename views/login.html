@@ -56,17 +56,28 @@
 <!-- </body> -->
 <script>
     $(document).ready(function () {
-        $('#login').click(function (e) {
-            var username = $('#username').val();
-            alert(username);
-            if (username == 'username') {
-                window.location.replace('/selectTrip')
-            }
-            if (username == 'admin') {
-                window.location.replace('/admin')
-            }
+        $.ajax({
+            method: "GET",
+            url: "/checkusername",
+            success: function (data) {
 
+                $('#login').click(function (e) {
+                    var username = $('#username').val();
+                    var pass = $('#pass').val();
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[0].Username == username && data[0].Password == pass) {
+                            window.location.replace('/admin')
+                        }else{
+                            alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+                        }
+                    }
+
+
+
+                });
+            }
         });
+
     });
 </script>
 
@@ -81,33 +92,33 @@
                 <p class="login-box-msg">เข้าสู่ระบบ</p>
 
                 <!-- <form action="#" method="post"> -->
-                    <!-- <div class="form-group has-feedback">
+                <!-- <div class="form-group has-feedback">
                         <input type="email" class="form-control" placeholder="Email">
                         <span class="fa fa-envelope form-control-feedback"></span>
                     </div> -->
-                    <!-- <div class="form-group has-feedback">
+                <!-- <div class="form-group has-feedback">
                         <input type="email" class="form-control" placeholder="Email">
                         <span class="fa fa-envelope form-control-feedback"></span>
                     </div> -->
 
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" id="username" placeholder="ชื่อผู้ใช้"
-                            aria-label="Input group example" aria-describedby="btnGroupAddon">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-user"></i></div>
-                        </div>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" id="username" placeholder="ชื่อผู้ใช้"
+                        aria-label="Input group example" aria-describedby="btnGroupAddon">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-user"></i></div>
                     </div>
+                </div>
 
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="รหัสผ้าน" aria-label="Input group example"
-                            aria-describedby="btnGroupAddon">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-lock"></i></div>
-                        </div>
+                <div class="input-group mb-4">
+                    <input type="password" class="form-control" id="pass" placeholder="รหัสผ้าน"
+                        aria-label="Input group example" aria-describedby="btnGroupAddon">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon"><i class="fa fa-lock"></i></div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <!-- <div class="col-8">
+                <div class="row">
+                    <!-- <div class="col-8">
                             <div class="checkbox icheck">
                                 <label>
                                     <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
@@ -119,12 +130,12 @@
                                 </label>
                             </div>
                         </div> -->
-                        <!-- /.col -->
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-block" id="login">เข้าสู่ระบบ</button>
-                        </div>
-                        <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-block" id="login">เข้าสู่ระบบ</button>
                     </div>
+                    <!-- /.col -->
+                </div>
                 <!-- </form> -->
 
                 <div class="social-auth-links text-center mb-3">

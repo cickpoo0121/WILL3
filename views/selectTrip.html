@@ -105,7 +105,7 @@
                             { data: "TripID", "visible": false },
                             { data: "No", title: "ลำดับ" },
                             { data: "TripName", title: "ชื่อทิป" },
-                            { defaultContent: "<button id='btnPrint' class='btn btn-primary text-light'>เลือก</button> ", orderable: false, title: "เลือกทิป" },
+                            { defaultContent: "<button id='btnPrint' class='btn btn-primary text-light'>เลือก</button> ", orderable: false, title: "ลายละเอียด" },
                         ],
                         responsive: true
                     });
@@ -126,7 +126,7 @@
                         if (tripid != null) {
                             // localStorage.TripID = tripid
                             sessionStorage.TripID = tripid
-                            window.location.replace('/map')
+                            window.location.replace('/tripinfor')
                         } else {
                             alert("กรุณาเลือกแผนการท่องเที่ยว")
                         }
@@ -134,18 +134,18 @@
 
                     });
 
-                    $('#mappage').click(function (e) {
-                        if (tripid == null) {
-                            alert("กรุณาเลือกแผนการท่องเที่ยว")
-                        }
-                        else {
-                            window.location.replace('/map')
-                        }
+                    // $('#mappage').click(function (e) {
+                    //     if (tripid == null) {
+                    //         alert("กรุณาเลือกแผนการท่องเที่ยว")
+                    //     }
+                    //     else {
+                    //         window.location.replace('/tripinfor')
+                    //     }
 
-                    });
+                    // });
 
                     $('#searchBick').click(function (e) {
-                        window.open('https://www.facebook.com/rent2gotravel/','_blank');
+                        window.open('https://www.facebook.com/rent2gotravel/', '_blank');
 
                     });
                 }
@@ -164,7 +164,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-light ">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm p-3 bg-white rounded ">
         <!-- <a href="#" class="navbar-brand">Brand</a> -->
         <img src="assets\images\logo.png" style="height:30px;">
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" id="menubar">
@@ -175,7 +175,7 @@
             <div class="navbar-nav">
                 <!-- <a href="/" class="nav-item nav-link ">หน้าแรก</a> -->
                 <a href="#" class="nav-item nav-link active">แผนการท่องเที่ยว</a>
-                <a href="" class="nav-item nav-link" id="mappage">แผ่นที่</a>
+                <!-- <a href="" class="nav-item nav-link" id="mappage">แผนที่</a> -->
                 <a href="" class="nav-item nav-link" id="searchBick">มองหารถเช่า</a>
                 <!-- <a href="" class="nav-item nav-link">คำถามที่พบบ่อย</a> -->
                 <!-- <a href="#" class="nav-item nav-link">Messages</a>
@@ -184,8 +184,8 @@
             <div class="navbar-nav ml-auto">
                 <!-- <form class="form-inline my-2 my-lg-0"> -->
 
-                <button class="btn my-2 my-sm-0 text-white" id="logout" style="background-color: #00a8ec;"
-                    type="submit">ออกจากระบบ</button>
+                <!-- <button class="btn my-2 my-sm-0 text-white" id="logout" style="background-color: #00a8ec;"
+                    type="submit">ออกจากระบบ</button> -->
                 <!-- </form> -->
             </div>
         </div>

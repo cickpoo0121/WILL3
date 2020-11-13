@@ -86,27 +86,53 @@ app.use("/assets/images", express.static(path.join(__dirname, '/assets/images'))
 //     })
 // });
 
-
-// Add image to an item
-app.put("/item/addImage", function (req, res) {
-    const image = req.body.image;
-    const Inventory_Number = req.body.Inventory_Number;
-    const sql = "UPDATE item SET Image=? where Inventory_Number=?;"
-    con.query(sql, [image, Inventory_Number], function (err, result, fields) {
+app.post("/booking", function (req, res) {
+    const { Name, Phone, Among } = req.body
+    const sql = "INSERT INTO `booking` ( `Name`, `Phone`, `Among`) VALUES ( ?, ?, ?);"
+    con.query(sql, [Name, Phone, Among], function (err, result, fields) {
         if (err) {
-            res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
+            res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง")
+            console.log(err)
         }
         else {
-            res.send("แก้ไขข้อมูลเรียบร้อย");
+            res.send("สำเร็จ");
         }
     })
 });
+
+
+// Add image to an item
+// app.put("/item/addImage", function (req, res) {
+//     const image = req.body.image;
+//     const Inventory_Number = req.body.Inventory_Number;
+//     const sql = "UPDATE item SET Image=? where Inventory_Number=?;"
+//     con.query(sql, [image, Inventory_Number], function (err, result, fields) {
+//         if (err) {
+//             res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
+//         }
+//         else {
+//             res.send("แก้ไขข้อมูลเรียบร้อย");
+//         }
+//     })
+// });
 
 // // Load lat lng of trip place
 app.get("/latlng/:Tripid", function (req, res) {
     const Tripid = req.params.Tripid;
     const sql = "SELECT * FROM latlong latlng,tripinfor trip WHERE latlng.TripID=trip.TripID and latlng.TripID=?"
     con.query(sql, [Tripid], function (err, result, fields) {
+        if (err) {
+            res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
+        } else {
+            res.json(result)
+        }
+    })
+});
+
+// // Load lat lng of trip place
+app.get("/customer", function (req, res) {
+    const sql = "SELECT * FROM `booking`"
+    con.query(sql, function (err, result, fields) {
         if (err) {
             res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
         } else {
@@ -128,11 +154,24 @@ app.get("/tripName", function (req, res) {
     })
 });
 
+// get user
+app.get("/checkusername", function (req, res) {
+    const Userid = req.params.Userid;
+    const sql = "SELECT * FROM `user`"
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            res.status(503).send("เซิร์ฟเวอร์ไม่ตอบสนอง");
+        } else {
+            res.json(result)
+        }
+    })
+});
+
 // =========== Services (Page loading) ===========
 
 //Root Page (landing page 1)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/views/home.html"));
+    res.sendFile(path.join(__dirname, "/views/selectTrip.html"));
     // res.render("home.ejs", {user: req.user});
 });
 
@@ -142,36 +181,36 @@ app.get("/login", function (req, res) {
 });
 
 //Return register page
-app.get("/register", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/register.html"))
-});
+// app.get("/register", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/register.html"))
+// });
 
 
 //Return Admin page
 app.get("/admin", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/adminhome.html"));
+    res.sendFile(path.join(__dirname, "/views/adminTrip.html"));
 });
 
 //Return Shop page
-app.get("/carshop", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/carshop.html"));
-});
+// app.get("/carshop", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/carshop.html"));
+// });
 
 //Return findCar page
-app.get("/findCar", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/findCar.html"))
-});
+// app.get("/findCar", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/findCar.html"))
+// });
 
 //Return carrent page
-app.get("/carrent", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/carrent.html"))
-});
+// app.get("/carrent", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/carrent.html"))
+// });
 
 
 //Return map page
-app.get("/map", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/map.html"))
-});
+// app.get("/map", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/map.html"))
+// });
 
 //Return test page
 app.get("/test", function (req, res) {
@@ -180,30 +219,34 @@ app.get("/test", function (req, res) {
 
 
 //Return travel page
-app.get("/travelplan", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/travelplan.html"))
-});
+// app.get("/travelplan", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/travelplan.html"))
+// });
 
 //Return payment page
-app.get("/payment", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/payment.html"))
-});
+// app.get("/payment", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/payment.html"))
+// });
 
 //Return booking page
-app.get("/booking", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/booking.html"))
-});
-
+// app.get("/booking", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/booking.html"))
+// });
 
 //Return booking page
-app.get("/selectTrip", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/selectTrip.html"))
+// app.get("/selectTrip", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/selectTrip.html"))
+// });
+
+//Return tripinfor page
+app.get("/tripinfor", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/tripinfor.html"))
 });
 
 
 // ========== Starting server ============
 
-const PORT = process.env.PORT|| 35000
+const PORT = process.env.PORT || 35000
 app.listen(PORT, function () {
     console.log("Server is running at " + PORT);
 });
