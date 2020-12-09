@@ -86,14 +86,12 @@
 
     <script>
         $(document).ready(function () {
-
             var tripTable
             var tripid
             $.ajax({
                 method: "GET",
                 url: "/tripName",
                 success: function (data) {
-
                     tripTable = $("#tripTable").DataTable({
                         "searching": false,
                         "paging": true,

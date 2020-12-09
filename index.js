@@ -234,9 +234,9 @@ app.get("/test", function (req, res) {
 // });
 
 //Return booking page
-// app.get("/selectTrip", function (req, res) {
-//     res.sendFile(path.join(__dirname, "/views/selectTrip.html"))
-// });
+app.get("/car", function (req, res) {
+    res.sendFile(path.join(__dirname, "/views/carshop.html.html"))
+});
 
 //Return tripinfor page
 app.get("/tripinformation", function (req, res) {
