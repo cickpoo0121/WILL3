@@ -55,6 +55,8 @@
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
     <!-- <link href="/dist/searchbox.css" rel="stylesheet" /> -->
     <style type="text/css">
+       
+
         .progressbar-wrapper {
             background: #fff;
             width: 100%;
@@ -143,15 +145,28 @@
 </head>
 
 <body>
-    <div class="progressbar-wrapper">
-        <ul class="progressbar">
-            <li class="active">Step 1</li>
-            <li>Step 2</li>
-            <li>Step 3</li>
-            <li>Step 4</li>
-            <li>Step 4</li>
-        </ul>
+    <div class="progress">
+
+        <div class="progress-track"></div>
+
+        <div id="step1" class="progress-step">
+            Step One
+        </div>
+
+        <div id="step2" class="progress-step">
+            Step Two
+        </div>
+
+        <div id="step3" class="progress-step">
+            Step Three
+        </div>
+
+        <div id="step4" class="progress-step">
+            Complete
+        </div>
     </div>
+
+    <button onClick=next()>Next Step</button>
 
 
 </body>

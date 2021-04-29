@@ -46,6 +46,7 @@ app.use(body_parser.urlencoded({ extended: true })); //when you post service
 app.use(body_parser.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/assets/images", express.static(path.join(__dirname, '/assets/images')));
+app.use("/style", express.static(path.join(__dirname, '/views/style.scss')));
 // app.use("/style.css", express.static(path.join(__dirname, 'style.css')));
 // app.use("/upload", express.static(path.join(__dirname, 'upload')));
 
@@ -171,14 +172,15 @@ app.get("/checkusername", function (req, res) {
 
 //Root Page (landing page 1)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/views/selectTrip.html"));
+    // res.sendFile(path.join(__dirname, "/views/selectTrip.html"));
+    res.sendFile(path.join(__dirname, "/views/fan.html"));
     // res.render("home.ejs", {user: req.user});
 });
 
 //Return login page
-app.get("/login", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/login.html"))
-});
+// app.get("/login", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/login.html"))
+// });
 
 //Return register page
 // app.get("/register", function (req, res) {
@@ -187,9 +189,9 @@ app.get("/login", function (req, res) {
 
 
 //Return Admin page
-app.get("/admin", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/adminTrip.html"));
-});
+// app.get("/admin", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/adminTrip.html"));
+// });
 
 //Return Shop page
 // app.get("/carshop", function (req, res) {
@@ -213,9 +215,9 @@ app.get("/admin", function (req, res) {
 // });
 
 //Return test page
-app.get("/test", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/test.html"))
-});
+// app.get("/test", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/test2.html"))
+// });
 
 
 //Return travel page
@@ -234,14 +236,14 @@ app.get("/test", function (req, res) {
 // });
 
 //Return booking page
-app.get("/car", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/carshop.html.html"))
-});
+// app.get("/car", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/carshop.html.html"))
+// });
 
 //Return tripinfor page
-app.get("/tripinformation", function (req, res) {
-    res.sendFile(path.join(__dirname, "/views/tripInfor.html"))
-});
+// app.get("/tripinformation", function (req, res) {
+//     res.sendFile(path.join(__dirname, "/views/tripInfor.html"))
+// });
 
 
 // ========== Starting server ============
